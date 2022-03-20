@@ -11,12 +11,13 @@ import (
 )
 
 func main() {
-	Run()
-}
-
-func Run() {
 	alg := flag.String("alg", "no-modulo", "Enter algoritma here")
 	flag.Parse()
+
+	Run(*alg)
+}
+
+func Run(alg string) {
 
 	var str string
 	var round int
@@ -32,7 +33,8 @@ func Run() {
 		fmt.Println("Input yang anda masukkan salah silahkan ulangi lagi :)")
 		fmt.Println("====================")
 		fmt.Println(" ")
-		Run()
+		Run(alg)
+		return
 	}
 	fmt.Print("Kata: ")
 	scanner.Scan()
@@ -40,7 +42,7 @@ func Run() {
 	fmt.Print("Key: ")
 	fmt.Scanln(&round)
 
-	chipperText := Chipper(str, round, method, *alg)
+	chipperText := Chipper(str, round, method, alg)
 	fmt.Println("Hasil")
 	fmt.Println(chipperText)
 	fmt.Print("Exit (y/n): ")
@@ -48,14 +50,14 @@ func Run() {
 	if exitUpper := strings.ToUpper(exit); exitUpper != "Y" {
 		fmt.Println("====================")
 		fmt.Println(" ")
-		Run()
+		Run(alg)
+		return
 	}
-	fmt.Println("😊😊😊😊😊😊😊😊😊😊😊")
+	fmt.Println("-------------------END-------------------")
 }
 
 func Chipper(str string, round int, method int, alg string) string {
 	if algUpper := strings.ToUpper(alg); algUpper == "WITH-MODULO" {
-		log.Println("Masuk sini")
 		round %= 26
 	}
 	loweCaseString := strings.ToLower(str)
